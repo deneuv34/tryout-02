@@ -9,12 +9,12 @@ var schema = buildSchema(`
   }
 `);
 
-dataList = [];
+dataList = []; //Saved Data
 
 var root = {
   todo: ({ input }) => {
     dataList.push(input)
-    console.log(dataList)
+    console.log('Server data List: ',dataList)
     return input;
   }
 };
