@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
@@ -6,6 +7,12 @@ class App extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.baseUrl = axios.create({ baseURL: 'http://localhost:8080',
+  headers: {
+    'Access-Control-Allow-Origin': '*'
+  },
+  method: 'GET',
+});
     this.state = {
       items: [],
       text: '',
@@ -22,6 +29,7 @@ class App extends Component {
       text: this.state.text,
       id: Date.now()
     };
+    this.baseUrl(`/graphql?query={ todo(input: "${this.state.text}") }`).then(res => console.log(res))
 
     this.setState((prevState) => ({
       items: prevState.items.concat(newItem),
