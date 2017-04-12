@@ -26,7 +26,7 @@ export default class voiceNative extends Component {
   Speech() {
     SpeechToTextModule.start()
     .then((resp) => {
-      console.log(resp)
+      this.setState({ text: resp })
     })
   }
 
@@ -34,14 +34,14 @@ export default class voiceNative extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          {this.state.text}| 
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          Press Text below to Start
         </Text>
         <TouchableOpacity onPress={() => this.Speech()}>
           <Text style={styles.instructions}>
-            Speech to Text
+            Press To Speech to Text
           </Text>
         </TouchableOpacity>
       </View>
