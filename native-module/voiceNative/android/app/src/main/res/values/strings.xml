@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">voiceNative</string>
+    <string name="SPEECH_NOT_SUPPORT">Not Support</string>
 </resources>

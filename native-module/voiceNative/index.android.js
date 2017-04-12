@@ -9,10 +9,27 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  NativeModules,
 } from 'react-native';
+const SpeechToTextModule = NativeModules.SpeechToText;  
 
 export default class voiceNative extends Component {
+  constructor() {
+    super();
+    this.state = {
+      text: '',
+    }
+  }
+
+  Speech() {
+    SpeechToTextModule.start()
+    .then((resp) => {
+      console.log(resp)
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -22,10 +39,11 @@ export default class voiceNative extends Component {
         <Text style={styles.instructions}>
           To get started, edit index.android.js
         </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TouchableOpacity onPress={() => this.Speech()}>
+          <Text style={styles.instructions}>
+            Speech to Text
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
