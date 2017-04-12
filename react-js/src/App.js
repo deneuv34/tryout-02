@@ -7,16 +7,21 @@ class App extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.baseUrl = axios.create({ baseURL: 'http://localhost:8080',
-  headers: {
-    'Access-Control-Allow-Origin': '*'
-  },
-  method: 'GET',
-});
     this.state = {
       items: [],
       text: '',
     }
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    axios.get('http://localhost:8080').then((items) =>{
+      console.log('RESPONSE', items)
+      this.setState({ items: items.data })
+    })
   }
 
   handleChange(e) {
@@ -27,9 +32,10 @@ class App extends Component {
     e.preventDefault();
     var newItem = {
       text: this.state.text,
-      id: Date.now()
+      date: Date.now()
     };
-    this.baseUrl(`/graphql?query={ todo(input: "${this.state.text}") }`).then(res => console.log(res))
+
+    axios.post('http://localhost:8080', { data : newItem })
 
     this.setState((prevState) => ({
       items: prevState.items.concat(newItem),
@@ -44,7 +50,7 @@ class App extends Component {
         <div className='App-intro'>
           <ul>
             {this.state.items.map(item => (
-              <li key={item.id}>{item.text}</li>
+              <li key={item.date}>{item.text}</li>
             ))}
           </ul>
         </div>

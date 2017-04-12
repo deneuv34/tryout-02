@@ -1,30 +1,25 @@
-var express = require('express');
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
-var cors = require('cors');
+const express = require('express');
+const bodyparser = require('body-parser');
 
-var schema = buildSchema(`
-  type Query {
-    todo (input: String) : String
-  }
-`);
+const app = express();
+let arr = []
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
-dataList = []; //Saved Data
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended:true}))
 
-var root = {
-  todo: ({ input }) => {
-    dataList.push(input)
-    console.log('Server data List: ',dataList)
-    return input;
-  }
-};
+app.get('/', (req,res) => {
+    res.send(arr)
+})
 
-var app = express();
+app.post('/', (req,res) => {
+    arr.push(req.body.data)
+    res.send('added')
+    console.log('ARRAY', arr)
+})
 
-app.use('/graphql',cors(), graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
-
-app.listen(8080, () => console.log('Now browse to localhost:8080/graphql'));
+app.listen(8080, () => console.log('Now browse to localhost:8080/'));
