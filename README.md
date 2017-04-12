@@ -44,8 +44,8 @@ $ react-native run-android // in other terminal tab for build the application
 For detail you can see the screenshot for result:
 ***
 ScreenShot
-![Alt text](https://github.com/deneuv34/tryout-02/blob/master/Screenshot_20170412-185049.jpg?raw=true "App View")
-![Alt text](https://github.com/deneuv34/tryout-02/blob/master/Screenshot_20170412-185110.jpg?raw=true "App View")
+![Alt text](https://github.com/deneuv34/tryout-02/blob/master/Screenshot_20170412-185049.jpg?raw=false "App View")
+![Alt text](https://github.com/deneuv34/tryout-02/blob/master/Screenshot_20170412-185110.jpg?raw=false "App View")
 
 
 License: MIT
